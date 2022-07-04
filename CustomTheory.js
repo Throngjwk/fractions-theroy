@@ -6,8 +6,8 @@ import { Utils } from "./api/Utils";
 
 var id = "my_custom_theory_id";
 var name = "My Custom Theory";
-var description = "A basic theory.";
-var authors = "Gilles-Philippe Paillé";
+var description = "Woowowoo";
+var authors = "Throngjwk";
 var version = 1;
 
 var currency;
@@ -17,6 +17,9 @@ var c1Exp, c2Exp;
 var achievement1, achievement2;
 var chapter1, chapter2;
 
+var cost = [5, 200, 4e4, 1e9]
+var upgradeMath = ["c_1", "c_2", "a_1", "a_2"]
+
 var init = () => {
     currency = theory.createCurrency();
 
@@ -25,19 +28,10 @@ var init = () => {
 
     // c1
     {
-        let getDesc = (level) => "c_1=" + getC1(level).toString(0);
+        let getDesc = (level) => upgradeMath[0] + " = " + getC1(level).toString(0);
         c1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(15, Math.log2(2))));
         c1.getDescription = (_) => Utils.getMath(getDesc(c1.level));
         c1.getInfo = (amount) => Utils.getMathTo(getDesc(c1.level), getDesc(c1.level + amount));
-    }
-
-    // c2
-    {
-        let getDesc = (level) => "c_2=2^{" + level + "}";
-        let getInfo = (level) => "c_2=" + getC2(level).toString(0);
-        c2 = theory.createUpgrade(1, currency, new ExponentialCost(5, Math.log2(10)));
-        c2.getDescription = (_) => Utils.getMath(getDesc(c2.level));
-        c2.getInfo = (amount) => Utils.getMathTo(getInfo(c2.level), getInfo(c2.level + amount));
     }
 
     /////////////////////
